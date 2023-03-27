@@ -1,0 +1,30 @@
+version: 2
+firmware: 3.60
+modules:
+  ScePaf:
+    nid: 0xCD679177
+    libraries:
+      ScePafGraphics:
+        kernel: false
+        nid: 0xA070D6A7
+        functions:
+          ScePafGraphics_2E30F1B5: 0x2E30F1B5
+          ScePafGraphics_3EB90427: 0x3EB90427
+      ScePafResource:
+        kernel: false
+        nid: 0x2836DC9B
+        functions:
+          scePafResourceSearchIdByName: 0x5F05DE68
+      ScePafToplevel:
+        kernel: false
+        nid: 0x4D9A9DD0
+        functions:
+          paf_Plugin_PageOpen: 0x30B442D9
+          ScePafToplevel_34FE1331: 0x34FE1331
+          maybe_load_plugin_ScePafToplevel_F702E40A: 0xF702E40A
+          ScePafToplevel_400F84CE: 0x400F84CE
+          ScePafToplevel_397DD062: 0x397DD062
+          maybe_EnterRenderingLoop_ScePafToplevel_12E33958: 0x12E33958
+          ScePafToplevel_3F0DB1BF: 0x3F0DB1BF
+          ScePafToplevel_E2860A99: 0xE2860A99
+          ScePafToplevel_A5560E60: 0xA5560E60
