@@ -1,5 +1,11 @@
 # psp2waveviewer
-A application for drawing waves on the home screen as they are
+A application for drawing waves of the home screen as they are
+
+# Special Thanks
+
+[Graphene](https://github.com/GrapheneCt) for Paf work helping.
+
+# Wave Viewer
 
 That's it.
 
