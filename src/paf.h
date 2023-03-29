@@ -56,6 +56,9 @@ void *paf_Plugin_PageOpen(void *plugin, ScePafWidgetMainParam *a2, void *param);
 // get widget hash
 int scePafResourceSearchIdByName(ScePafWidgetMainParam *widgetToSearchFor, ScePafWidgetMainParam *widgetName);
 
+// settings waveparam 0x1F
+int ScePafGraphics_45A01FA1(void *pParam);
+
 
 #ifdef __cplusplus
 }

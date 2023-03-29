@@ -10,6 +10,7 @@ modules:
         functions:
           ScePafGraphics_2E30F1B5: 0x2E30F1B5
           ScePafGraphics_3EB90427: 0x3EB90427
+          ScePafGraphics_45A01FA1: 0x45A01FA1
       ScePafResource:
         kernel: false
         nid: 0x2836DC9B

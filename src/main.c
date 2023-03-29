@@ -80,6 +80,36 @@ int wave_change_thread(SceSize arg_len, void *argp){
 	return 0;
 }
 
+int load_waveparam(const char *path){
+
+	int res;
+	SceUID fd;
+	SceUInt8 waveparam[0x2A0];
+
+	fd = sceIoOpen(path, SCE_O_RDONLY, 0);
+	if(fd < 0){
+		return fd;
+	}
+
+	do {
+		res = sceIoRead(fd, waveparam, sizeof(waveparam));
+		if(res < 0){
+			break;
+		}
+
+		if(res != 0x2A0){
+			res = -1;
+			break;
+		}
+
+		res = ScePafGraphics_45A01FA1(waveparam);
+	} while(0);
+
+	sceIoClose(fd);
+
+	return res;
+}
+
 int loadPluginCB(void *plugin){
 
 	ScePafWidgetMainParam si, res;
@@ -104,6 +134,24 @@ int loadPluginCB(void *plugin){
 
 	ScePafGraphics_3EB90427();
 	// ScePafGraphics_2E30F1B5(1.0f, 1);
+
+	{
+		int res;
+
+		res = load_waveparam("host0:data/waveparam.bin");
+
+		if(res < 0){
+			res = load_waveparam("sd0:/data/waveparam.bin");
+		}
+
+		if(res < 0){
+			res = load_waveparam("ux0:/data/waveparam.bin");
+		}
+
+		if(res < 0){
+			res = load_waveparam("pd0:/wave/waveparam.bin");
+		}
+	}
 
 	g_thid = sceKernelCreateThread("WaveChangeThread", wave_change_thread, 0x68, 0x1000, 0, 0, NULL);
 	if(g_thid >= 0){
