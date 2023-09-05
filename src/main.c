@@ -74,6 +74,7 @@ int wave_change_thread(SceSize arg_len, void *argp){
 			ScePafGraphics_2E30F1B5(1.0f, windex & 0x1F);
 		}
 
+		sceKernelPowerTick(SCE_KERNEL_POWER_TICK_DEFAULT);
 		sceKernelDelayThread(16 * 1000);
 	}
 
