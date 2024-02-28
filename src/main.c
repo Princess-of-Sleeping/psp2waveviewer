@@ -381,12 +381,38 @@ typedef struct _psp2wpp_comm_packet {
 	int size;
 } psp2wpp_comm_packet;
 
+int start_remote_helper(void){
+
+	int res;
+	SceUID moduleId;
+
+	res = taiLoadKernelModule("app0:/usbserial_patch.skprx", 0x1000, NULL);
+	if(res < 0){
+		sceClibPrintf("taiLoadKernelModule 0x%X\n", res);
+		return res;
+	}
+
+	moduleId = res;
+
+	res = taiStartKernelModule(moduleId, 0, NULL, 0, NULL, NULL);
+	if(res < 0){
+		sceClibPrintf("taiStartKernelModule 0x%X\n", res);
+		return res;
+	}
+
+	return 0;
+}
+
 int wave_exec_thread(SceSize arg_len, void *argp){
 
 	int res;
 	SceUInt8 waveparam[0x2A0];
 
 	if(sceUsbSerialStatus() == 0x80010058){
+		res = start_remote_helper();
+		if(res < 0){
+			return sceKernelExitDeleteThread(0);
+		}
 	}
 
 	sceShellUtilLock(SCE_SHELL_UTIL_LOCK_TYPE_PS_BTN);

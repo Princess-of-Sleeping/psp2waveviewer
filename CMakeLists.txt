@@ -19,6 +19,7 @@ set(VITA_MAKE_FSELF_FLAGS "${VITA_MAKE_FSELF_FLAGS} -a 0x2F00000000000101")
 enable_language(C ASM)
 
 add_subdirectory(libpaf)
+add_subdirectory(UsbSerial_patch)
 
 add_executable(${PROJECT_NAME}
   src/main.c
@@ -26,6 +27,7 @@ add_executable(${PROJECT_NAME}
 )
 
 add_dependencies(${PROJECT_NAME} ScePaf_stub_weak)
+add_dependencies(${PROJECT_NAME} usbserial_patch.skprx-self)
 
 target_link_libraries(${PROJECT_NAME}
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/liblibdecoder.a
@@ -60,8 +62,9 @@ vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}
 )
 
 vita_create_vpk(psp2waveviewer.vpk "WAVE00001" ${PROJECT_NAME}.self
-  VERSION "01.00"
+  VERSION "02.10"
   NAME "Wave Viewer"
+  FILE ${CMAKE_CURRENT_BINARY_DIR}/UsbSerial_patch/usbserial_patch.skprx usbserial_patch.skprx
 )
 
 vita_create_stubs(stubs_${PROJECT_NAME} ${PROJECT_NAME} exports.yml)
