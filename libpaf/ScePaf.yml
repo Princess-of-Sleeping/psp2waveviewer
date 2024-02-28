@@ -11,6 +11,7 @@ modules:
           ScePafGraphics_2E30F1B5: 0x2E30F1B5
           ScePafGraphics_3EB90427: 0x3EB90427
           ScePafGraphics_45A01FA1: 0x45A01FA1
+          ScePafGraphics_4E038C05: 0x4E038C05
       ScePafResource:
         kernel: false
         nid: 0x2836DC9B
@@ -29,3 +30,4 @@ modules:
           ScePafToplevel_3F0DB1BF: 0x3F0DB1BF
           ScePafToplevel_E2860A99: 0xE2860A99
           ScePafToplevel_A5560E60: 0xA5560E60
+          ScePafToplevel_9A4B0DC4: 0x9A4B0DC4

@@ -14,7 +14,7 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-q -Wall -O2 -fno-inline -fno-builtin -fshort-wchar")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions -Wl,-q -Wall -O2 -fno-inline -fno-builtin -fshort-wchar")
 
-set(VITA_MAKE_FSELF_FLAGS "${VITA_MAKE_FSELF_FLAGS} -a 0x2F00000000000005")
+set(VITA_MAKE_FSELF_FLAGS "${VITA_MAKE_FSELF_FLAGS} -a 0x2F00000000000101")
 
 enable_language(C ASM)
 
@@ -22,18 +22,29 @@ add_subdirectory(libpaf)
 
 add_executable(${PROJECT_NAME}
   src/main.c
+  src/wave_bootlogo.s
 )
 
 add_dependencies(${PROJECT_NAME} ScePaf_stub_weak)
 
 target_link_libraries(${PROJECT_NAME}
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/liblibdecoder.a
+  SceLibc_stub
   SceKernelThreadMgr_stub
   SceSysmodule_stub
+  SceNet_stub
+  SceNetCtl_stub
   SceCtrl_stub
   ScePaf_stub
   SceLibKernel_stub
   SceIofilemgr_stub
+  SceKernelModulemgr_stub
   SceProcessmgr_stub
+  SceUsbSerial_stub
+  SceSysmem_stub
+  SceDisplay_stub
+  taihen_stub
+  SceShellSvc_stub
   ${CMAKE_CURRENT_BINARY_DIR}/libpaf/libScePaf_stub_weak.a
 )
 
