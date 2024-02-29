@@ -416,6 +416,7 @@ int wave_exec_thread(SceSize arg_len, void *argp){
 	}
 
 	sceShellUtilLock(SCE_SHELL_UTIL_LOCK_TYPE_PS_BTN);
+
 	int retry = 3000;
 
 	res = sceUsbSerialStart();
@@ -538,6 +539,35 @@ int wave_exec_thread(SceSize arg_len, void *argp){
 				}
 
 				res = sceUsbSerialSend(waveparam, sizeof(waveparam), 0, 1000);
+				if(res < 0){
+					sceClibPrintf("L%d: sceUsbSerialSend 0x%X (res)\n", __LINE__, res);
+					break;
+				}
+
+				break;
+			case 3:
+				res = sceUsbSerialRecv(waveparam, sizeof(waveparam), 0, 16600);
+				if(res < 0){
+					sceClibPrintf("L%d: sceUsbSerialRecv 0x%X (res)\n", __LINE__, res);
+					break;
+				}
+
+				do {
+					SceUID fd = sceIoOpen("ux0:/data/waveparam.bin", SCE_O_CREAT | SCE_O_TRUNC | SCE_O_WRONLY, 0606);
+					if(fd < 0){
+						res = fd;
+						break;
+					}
+
+					res = sceIoWrite(fd, waveparam, sizeof(waveparam));
+					sceIoClose(fd);
+
+					if(res == sizeof(waveparam)){
+						res = 0;
+					}
+				} while(0);
+
+				res = sceUsbSerialSend((SceUInt32[]){res}, 4, 0, 1000);
 				if(res < 0){
 					sceClibPrintf("L%d: sceUsbSerialSend 0x%X (res)\n", __LINE__, res);
 					break;
