@@ -17,7 +17,7 @@ SceBool sceSblACMgrIsAllowedUsbSerial_patch(ScePID target){
 	return SCE_TRUE;
 }
 
-void _start() __attribute__ ((weak, alias("module_start")));
+// void _start() __attribute__ ((weak, alias("module_start")));
 int module_start(SceSize args, void *argp){
 
 	tai_module_info_t module_info;

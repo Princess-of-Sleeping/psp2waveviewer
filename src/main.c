@@ -158,16 +158,42 @@ int dump_current_wave_param(const char *name, void *pWaveParam){
 	void *(* FUN_81200b40_WaveInstance)(void *a1, ScePafString *pString, SceBool a3) = NULL;
 	void *(* FUN_8120116c_WaveRenderer)(void *a1, ScePafString *pString, SceBool a3) = NULL;
 
+	SceUIntPtr text_base = (SceUIntPtr)moduleInfo.segments[0].vaddr;
+
 	switch(tai_module_info.module_nid){
-	case 0x03182AC6:
-		FUN_8109e9a0 = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x9e9a0 | 1));
-		FUN_811fe9e8_Material = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x1fe9e8 | 1));
-		FUN_811fef58_PointLightSphere = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x1fef58 | 1));
-		FUN_811ff448_Fog = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x1ff448 | 1));
-		FUN_811ffb88_Sky = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x1ffb88 | 1));
-		FUN_812000b8_FFTWave = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x2000b8 | 1));
-		FUN_81200b40_WaveInstance = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x200b40 | 1));
-		FUN_8120116c_WaveRenderer = (void *)((SceUIntPtr)moduleInfo.segments[0].vaddr + (0x20116c | 1));
+	case 0x03182AC6: // 3.200.010 Tool
+		FUN_8109e9a0                  = (void *)(text_base + (0x9e9a0 | 1));
+		FUN_811fe9e8_Material         = (void *)(text_base + (0x1fe9e8 | 1));
+		FUN_811fef58_PointLightSphere = (void *)(text_base + (0x1fef58 | 1));
+		FUN_811ff448_Fog              = (void *)(text_base + (0x1ff448 | 1));
+		FUN_811ffb88_Sky              = (void *)(text_base + (0x1ffb88 | 1));
+		FUN_812000b8_FFTWave          = (void *)(text_base + (0x2000b8 | 1));
+		FUN_81200b40_WaveInstance     = (void *)(text_base + (0x200b40 | 1));
+		FUN_8120116c_WaveRenderer     = (void *)(text_base + (0x20116c | 1));
+		break;
+	case 0xCD679177: // 3.600.011 CEX
+	case 0x4AB91355: // 3.600.011 DEX
+	case 0x73F90499: // 3.650.011 CEX
+	case 0xDFE774A1: // 3.650.011 DEX
+		FUN_8109e9a0                  = (void *)(text_base + (0x9d40e | 1));
+		FUN_811fe9e8_Material         = (void *)(text_base + (0x1f9c3c | 1));
+		FUN_811fef58_PointLightSphere = (void *)(text_base + (0x1fa2a8 | 1));
+		FUN_811ff448_Fog              = (void *)(text_base + (0x1fa850 | 1));
+		FUN_811ffb88_Sky              = (void *)(text_base + (0x1fb030 | 1));
+		FUN_812000b8_FFTWave          = (void *)(text_base + (0x1fb560 | 1));
+		FUN_81200b40_WaveInstance     = (void *)(text_base + (0x1fc110 | 1));
+		FUN_8120116c_WaveRenderer     = (void *)(text_base + (0x1fc7cc | 1));
+		break;
+	case 0xFA5137D0: // 3.600.011 Tool
+	case 0xD6AB6069: // 3.650.011 Tool
+		FUN_8109e9a0                  = (void *)(text_base + (0x9defe | 1));
+		FUN_811fe9e8_Material         = (void *)(text_base + (0x1fa7f4 | 1));
+		FUN_811fef58_PointLightSphere = (void *)(text_base + (0x1fae60 | 1));
+		FUN_811ff448_Fog              = (void *)(text_base + (0x1fb408 | 1));
+		FUN_811ffb88_Sky              = (void *)(text_base + (0x1fbbe8 | 1));
+		FUN_812000b8_FFTWave          = (void *)(text_base + (0x1fc118 | 1));
+		FUN_81200b40_WaveInstance     = (void *)(text_base + (0x1fccc8 | 1));
+		FUN_8120116c_WaveRenderer     = (void *)(text_base + (0x1fd384 | 1));
 		break;
 	default:
 		sceClibPrintf("Unknown ScePaf fingerprint 0x%08X\n", tai_module_info.module_nid);
